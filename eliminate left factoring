@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX 100
+void eliminateLeftFactoring(char nonTerminal, char commonPrefix[], char beta1[], char beta2[]) {
+    char newNonTerminal = nonTerminal + ('\''); // Create a new non-terminal A'
+    printf("\nGiven Production: %c -> %s%s | %s%s", nonTerminal, commonPrefix, beta1, commonPrefix, beta2);
+    printf("\nAfter Eliminating Left Factoring:");
+    printf("\n%c -> %s%c", nonTerminal, commonPrefix, newNonTerminal);
+    printf("\n%c -> %s | %s\n", newNonTerminal, beta1, beta2);
+}
+int main() {
+    char nonTerminal;
+    char commonPrefix[MAX], beta1[MAX], beta2[MAX];
+    printf("Enter the Non-Terminal: ");
+    scanf(" %c", &nonTerminal);
+    printf("Enter the Common Prefix: ");
+    scanf("%s", commonPrefix);
+    printf("Enter the First Alternative (β1): ");
+    scanf("%s", beta1);
+    printf("Enter the Second Alternative (β2): ");
+    scanf("%s", beta2);
+    eliminateLeftFactoring(nonTerminal, commonPrefix, beta1, beta2);
+    return 0;
+}
