@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <string.h>
+char input[100];
+int index = 0;
+void E();
+void E_prime();
+void T();
+void T_prime();
+void F();
+
+void error() {
+    printf("Error in parsing!\n");
+    exit(1);
+}
+
+// Match a character and move forward
+void match(char expected) {
+    if (input[index] == expected)
+        index++;
+    else
+        error();
+}
+
+// E -> T E'
+void E() {
+    T();
+    E_prime();
+}
+
+// E' -> + T E' | ε
+void E_prime() {
+    if (input[index] == '+') {
+        match('+');
+        T();
+        E_prime();
+    }
+}
+
+// T -> F T'
+void T() {
+    F();
+    T_prime();
+}
+
+// T' -> * F T' | ε
+void T_prime() {
+    if (input[index] == '*') {
+        match('*');
+        F();
+        T_prime();
+    }
+}
+
+// F -> (E) | id
+void F() {
+    if (input[index] == '(') {
+        match('(');
+        E();
+        match(')');
+    } else if (input[index] == 'a' || input[index] == 'b') {
+        match(input[index]); // Match identifier (id)
+    } else {
+        error();
+    }
+}
+
+int main() {
+    printf("Enter expression: ");
+    scanf("%s", input);
+    
+    E();
+    
+    if (input[index] == '\0')
+        printf("Parsing Successful!\n");
+    else
+        printf("Parsing Failed!\n");
+    
+    return 0;
+}
