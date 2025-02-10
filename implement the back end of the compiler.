@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <string.h>
+int tempVar = 1; 
+void generateTAC(char op, char arg1, char arg2) {
+    printf("T%d = %c %c %c\n", tempVar, arg1, op, arg2);
+    tempVar++;
+}
+int main() {
+    char expr[50];
+    printf("Enter arithmetic expression (e.g., a+b*c): ");
+    scanf("%s", expr);
+
+    int len = strlen(expr);
+    char temp = 'T'; // Temporary variable notation
+    int i = 0;
+
+    while (i < len) {
+        if (expr[i] == '+' || expr[i] == '-' || expr[i] == '*' || expr[i] == '/') {
+            generateTAC(expr[i], expr[i - 1], expr[i + 1]);
+            expr[i + 1] = tempVar + '0'; // Replace right operand with temporary variable
+        }
+        i++;
+    }
+
+    return 0;
+}
