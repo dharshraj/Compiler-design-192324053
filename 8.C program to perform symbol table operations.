@@ -1,33 +1,25 @@
 #include <stdio.h>
 #include <string.h>
-
 #define MAX 10
-
 typedef struct {
     char id[20];
     char type[10];
     int addr;
 } Symbol;
-
 Symbol table[MAX];
 int count = 0;
-
-// Insert a symbol
 void insert(char id[], char type[], int addr) {
     for (int i = 0; i < count; i++)
         if (strcmp(table[i].id, id) == 0) {
             printf("Error: '%s' already exists!\n", id);
             return;
         }
-
     strcpy(table[count].id, id);
     strcpy(table[count].type, type);
     table[count].addr = addr;
     count++;
     printf("Inserted: %s, %s, %d\n", id, type, addr);
 }
-
-// Search for a symbol
 void search(char id[]) {
     for (int i = 0; i < count; i++)
         if (strcmp(table[i].id, id) == 0) {
@@ -47,7 +39,6 @@ void display() {
     for (int i = 0; i < count; i++)
         printf("%s\t%s\t%d\n", table[i].id, table[i].type, table[i].addr);
 }
-
 int main() {
     insert("a", "int", 100);
     insert("b", "float", 104);
