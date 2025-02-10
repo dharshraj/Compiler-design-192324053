@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX 10
+typedef struct {
+    char expr[20];
+    char temp[5];
+} Expression;
+Expression table[MAX];
+int count = 0, tempVar = 1;
+int findSubexpression(char *expr) {
+    for (int i = 0; i < count; i++)
+        if (strcmp(table[i].expr, expr) == 0)
+            return i;
+    return -1;
+}
+void storeSubexpression(char *expr) {
+    sprintf(table[count].temp, "T%d", tempVar++);
+    strcpy(table[count].expr, expr);
+    count++;
+}
+void optimize(char *expr) {
+    if (findSubexpression(expr) == -1)
+        storeSubexpression(expr);
+}
+void displayOptimizedCode() {
+    printf("\nOptimized Code:\n");
+    for (int i = 0; i < count; i++)
+        printf("%s = %s\n", table[i].temp, table[i].expr);
+}
+int main() {
+    char expressions[MAX][20] = {
+        "a + b", "a + b", "c * d", "c * d", "a + b * c", "a + b * c"
+    };
+    printf("Original Expressions:\n");
+    for (int i = 0; i < 6; i++) {
+        printf("%s\n", expressions[i]);
+        optimize(expressions[i]);
+    }
+    displayOptimizedCode();
+    return 0;
+}
