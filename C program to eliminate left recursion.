@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX 10
+void eliminateLeftRecursion(char nonTerminal, char alpha[MAX], char beta[MAX]) {
+    printf("\nGiven Production: %c -> %c%s | %s", nonTerminal, nonTerminal, alpha, beta);
+    printf("\nAfter Eliminating Left Recursion:");
+    char newNonTerminal = nonTerminal + ('\'');
+    printf("\n%c -> %s%c", nonTerminal, beta, newNonTerminal);
+    printf("\n%c -> %s%c | ε\n", newNonTerminal, alpha, newNonTerminal);
+}
+int main() {
+    char nonTerminal;
+    char alpha[MAX], beta[MAX];
+    printf("Enter the Non-Terminal: ");
+    scanf(" %c", &nonTerminal);
+    printf("Enter the Left Recursive Part (α): ");
+    scanf("%s", alpha);
+    printf("Enter the Non-Recursive Part (β): ");
+    scanf("%s", beta);
+    eliminateLeftRecursion(nonTerminal, alpha, beta);
+    return 0;
+}
